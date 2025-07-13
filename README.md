@@ -15,6 +15,10 @@ The script is organized into the following key components:
 7. **Synthetic Data Generation**
 
 ---
+## Dependency
+
++ numpy
+---
 
 ## Classes & Functions
 
