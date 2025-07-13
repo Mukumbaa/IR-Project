@@ -145,9 +145,7 @@ def uars_ranking(dataset: Dataset) -> Dict[int, float]:
         rankings[i] = np.mean(ratings) if ratings else 0.5
     return rankings
 
-# 
-# Example Usage Placeholder
-# 
+# Print only n top or bottom items
 def print_top_bottom(rankings, N = 5):
 
     if rankings:
@@ -228,14 +226,6 @@ def generate_grouped_ratings() -> List[Tuple[int, int, int]]:
             raw_ratings.append((user_id, i, random.randint(1, 3)))
 
 
-    # NEW
-    # random vote added on all items
-    # for user_id in range((max_users * 40)//100, (max_users * 50)//100):
-    #     ri = random.sample(all_items, k=5)
-    #     for i in ri:
-    #         raw_ratings.append((user_id, i, random.randint(1,10)))
-
-    # random 
     for user_id in range(max_items, max_items+num_random_users):
         items = random.sample(all_items, k=20) # 20
         for i in items:
@@ -243,58 +233,7 @@ def generate_grouped_ratings() -> List[Tuple[int, int, int]]:
     
     return raw_ratings
 
-# def generate_grouped_ratings() -> List[Tuple[int, int, int]]:
-#     random.seed(42)
-#     raw_ratings = []
-#     group1_items = range(101, 140)
-#     group2_items = range(140, 180)
-#     all_items = range(101, 180)
-    
-#     # Group 1 (users 1-50)
-#     for user_id in range(1, 51):
-#         preferred = random.sample(group1_items, k=15)
-#         non_preferred = random.sample(group2_items, k=5)
-#         for i in preferred:
-#             raw_ratings.append((user_id, i, random.randint(7, 10)))
-#         for i in non_preferred:
-#             raw_ratings.append((user_id, i, random.randint(1, 3)))
-    
-#     # Group 2 (users 51-100)
-#     for user_id in range(51, 101):
-#         preferred = random.sample(group2_items, k=15)
-#         non_preferred = random.sample(group1_items, k=5)
-#         for i in preferred:
-#             raw_ratings.append((user_id, i, random.randint(8, 10)))
-#         for i in non_preferred:
-#             raw_ratings.append((user_id, i, random.randint(1, 4)))
-#     # NEW
-#     # random vote added on all items
-#     for user_id in range(40, 60):
-#         ri = random.sample(all_items, k=5)
-#         for i in ri:
-#             raw_ratings.append((user_id, i, random.randint(1,10)))
-
-#     random 
-#     for user_id in range(101, 106):
-#         items = random.sample(range(101, 180), k=20)
-#         for i in items:
-#             raw_ratings.append((user_id, i, random.randint(1, 10)))
-    
-#     return raw_ratings
 if __name__ == "__main__":
-    # synthetic ratings: (user_id, item_id, rating)
-
-    # num_users = 100
-    # num_items = 40
-    # raw_ratings = []
-
-    # random.seed(42)
-    # for user_id in range(1, num_users + 1):
-    #     rated_items = random.sample(range(101, 101 + num_items), k=random.randint(10, 30))
-    #     for item_id in rated_items:
-    #         rating = random.randint(1, 10)
-    #         raw_ratings.append((user_id, item_id, rating))
-
 
     dataset = Dataset(generate_grouped_ratings())
     cluster_results, fallback_ranking, outside_users = cluster_based_ranking(dataset, alpha=0.937) # , 91 935
