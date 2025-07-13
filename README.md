@@ -17,7 +17,7 @@ The script is organized into the following key components:
 ---
 ## Dependency
 
-+ numpy
++ `numpy`
 ---
 
 ## Classes & Functions
