@@ -435,6 +435,23 @@ def generate_grouped_ratings() -> List[Tuple[int, int, int]]:
 # MAIN 
 # 
 
+def load_movielens_sample(path: str = "ml-1m/ratings.dat", sample_size: int = 5000):
+    ratings = load_movielens_1m(path)
+    return random.sample(ratings, k=sample_size)
+
+def load_movielens_1m(path: str = "ml-1m/ratings.dat") -> List[Tuple[int, int, int]]:
+    """
+    Carica i dati MovieLens 1M dal file ratings.dat.
+    
+    Returns:
+        Lista di tuple (user_id, item_id, rating)
+    """
+    ratings = []
+    with open(path, "r") as f:
+        for line in f:
+            user_id, item_id, rating, _ = line.strip().split("::")
+            ratings.append((int(user_id), int(item_id), int(rating)))
+    return ratings
 if __name__ == "__main__":
     """
     Esecuzione principale che:
@@ -445,11 +462,13 @@ if __name__ == "__main__":
     """
     
     # Genera dataset sintetico
-    dataset = Dataset(generate_grouped_ratings())
+    # dataset = Dataset(generate_grouped_ratings())
     
+    dataset = Dataset(load_movielens_sample("ml-1m/ratings.dat"))
+    # dataset = Dataset(generate_grouped_ratings())
     # Applica cluster-based ranking
     # alpha=0.937: soglia alta per clusters molto simili
-    cluster_results, fallback_ranking, outside_users = cluster_based_ranking(dataset, alpha=0.937)
+    cluster_results, fallback_ranking, outside_users = cluster_based_ranking(dataset, alpha=0.95)
     
     # Calcola ranking globale con UARS
     uars = uars_ranking(dataset)
