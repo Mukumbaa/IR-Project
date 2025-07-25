@@ -194,7 +194,7 @@ def connected_components(graph: Dict[int, List[int]]) -> List[List[int]]:
                 if u not in visited:
                     visited.add(u)
                     component.append(u)
-                    stack.extend(graph[u])  # Aggiunge i vicini alla pila
+                    stack.extend(graph[u])  # Aggiunge i vicini allo stack
             
             components.append(component)
     return components
@@ -231,7 +231,7 @@ def cluster_based_ranking(dataset: Dataset, alpha: float = 0.75, lambda_: float 
 
     # Processa ogni cluster
     for cluster in clusters:
-        if len(cluster) < 10:  # Scarta clusters troppo piccoli (rumore)
+        if len(cluster) < 5:  # Scarta clusters troppo piccoli (rumore)
             continue
             
         all_cluster_users.update(cluster)
